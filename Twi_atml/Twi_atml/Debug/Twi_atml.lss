@@ -1,0 +1,294 @@
+
+Twi_atml.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000172  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000032  00800060  00000172  000001e6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000218  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000248  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000f8  00000000  00000000  00000284  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000e1a  00000000  00000000  0000037c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000086a  00000000  00000000  00001196  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000071d  00000000  00000000  00001a00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000248  00000000  00000000  00002120  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000048e  00000000  00000000  00002368  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000007be  00000000  00000000  000027f6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000c8  00000000  00000000  00002fb4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e2 e7       	ldi	r30, 0x72	; 114
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a2 39       	cpi	r26, 0x92	; 146
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+  76:	0e 94 59 00 	call	0xb2	; 0xb2 <main>
+  7a:	0c 94 b7 00 	jmp	0x16e	; 0x16e <_exit>
+
+0000007e <__bad_interrupt>:
+  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000082 <initI2C>:
+uint8_t i2cReadNoAck(void)
+{
+    TWCR = (_BV(TWINT) | _BV(TWEN));
+    i2cWaitForComplete();
+    return (TWDR);
+}
+  82:	80 e2       	ldi	r24, 0x20	; 32
+  84:	80 b9       	out	0x00, r24	; 0
+  86:	86 b7       	in	r24, 0x36	; 54
+  88:	84 60       	ori	r24, 0x04	; 4
+  8a:	86 bf       	out	0x36, r24	; 54
+  8c:	08 95       	ret
+
+0000008e <i2cWaitForComplete>:
+  8e:	06 b6       	in	r0, 0x36	; 54
+  90:	07 fe       	sbrs	r0, 7
+  92:	fd cf       	rjmp	.-6      	; 0x8e <i2cWaitForComplete>
+  94:	08 95       	ret
+
+00000096 <i2cStart>:
+  96:	84 ea       	ldi	r24, 0xA4	; 164
+  98:	86 bf       	out	0x36, r24	; 54
+  9a:	0e 94 47 00 	call	0x8e	; 0x8e <i2cWaitForComplete>
+  9e:	08 95       	ret
+
+000000a0 <i2cStop>:
+  a0:	84 e9       	ldi	r24, 0x94	; 148
+  a2:	86 bf       	out	0x36, r24	; 54
+  a4:	08 95       	ret
+
+000000a6 <i2cSend>:
+void i2cSend(uint8_t data)
+{
+    TWDR = data;
+  a6:	83 b9       	out	0x03, r24	; 3
+    TWCR = (_BV(TWINT) | _BV(TWEN)); /* init and enable */
+  a8:	84 e8       	ldi	r24, 0x84	; 132
+  aa:	86 bf       	out	0x36, r24	; 54
+    i2cWaitForComplete();
+  ac:	0e 94 47 00 	call	0x8e	; 0x8e <i2cWaitForComplete>
+  b0:	08 95       	ret
+
+000000b2 <main>:
+	}
+}
+
+int main(void)
+
+{
+  b2:	cf 93       	push	r28
+  b4:	df 93       	push	r29
+  b6:	cd b7       	in	r28, 0x3d	; 61
+  b8:	de b7       	in	r29, 0x3e	; 62
+  ba:	e1 97       	sbiw	r28, 0x31	; 49
+  bc:	0f b6       	in	r0, 0x3f	; 63
+  be:	f8 94       	cli
+  c0:	de bf       	out	0x3e, r29	; 62
+  c2:	0f be       	out	0x3f, r0	; 63
+  c4:	cd bf       	out	0x3d, r28	; 61
+	// Void Setup
+	initUSART();
+  c6:	0e 94 aa 00 	call	0x154	; 0x154 <initUSART>
+	initI2C();
+  ca:	0e 94 41 00 	call	0x82	; 0x82 <initI2C>
+
+	// Void loop
+	while (1)
+	{
+		i2cStart();
+  ce:	0e 94 4b 00 	call	0x96	; 0x96 <i2cStart>
+		//Send Adress
+		i2cSend(18);
+  d2:	82 e1       	ldi	r24, 0x12	; 18
+  d4:	0e 94 53 00 	call	0xa6	; 0xa6 <i2cSend>
+		//send Data
+		char data[] = ("ahmad how are you today lets's see if it works..");
+  d8:	81 e3       	ldi	r24, 0x31	; 49
+  da:	e0 e6       	ldi	r30, 0x60	; 96
+  dc:	f0 e0       	ldi	r31, 0x00	; 0
+  de:	de 01       	movw	r26, r28
+  e0:	11 96       	adiw	r26, 0x01	; 1
+  e2:	01 90       	ld	r0, Z+
+  e4:	0d 92       	st	X+, r0
+  e6:	8a 95       	dec	r24
+  e8:	e1 f7       	brne	.-8      	; 0xe2 <main+0x30>
+		int size = sizeof(data);
+		transmitByte(size);
+  ea:	81 e3       	ldi	r24, 0x31	; 49
+  ec:	0e 94 b3 00 	call	0x166	; 0x166 <transmitByte>
+		transmitByte('\n');
+  f0:	8a e0       	ldi	r24, 0x0A	; 10
+  f2:	0e 94 b3 00 	call	0x166	; 0x166 <transmitByte>
+		transmitByte('\r');
+  f6:	8d e0       	ldi	r24, 0x0D	; 13
+  f8:	0e 94 b3 00 	call	0x166	; 0x166 <transmitByte>
+
+		// for (int i = 0; i < size; i++)
+		uint8_t i = 0;
+		while (data[i])
+  fc:	19 81       	ldd	r17, Y+1	; 0x01
+  fe:	11 23       	and	r17, r17
+ 100:	b9 f0       	breq	.+46     	; 0x130 <main+0x7e>
+ 102:	00 e0       	ldi	r16, 0x00	; 0
+		{
+			i2cSend(data[i]);
+ 104:	81 2f       	mov	r24, r17
+ 106:	0e 94 53 00 	call	0xa6	; 0xa6 <i2cSend>
+			transmitByte(data[i]);
+ 10a:	81 2f       	mov	r24, r17
+ 10c:	0e 94 b3 00 	call	0x166	; 0x166 <transmitByte>
+			i++;
+ 110:	0f 5f       	subi	r16, 0xFF	; 255
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 112:	8f e0       	ldi	r24, 0x0F	; 15
+ 114:	97 e2       	ldi	r25, 0x27	; 39
+ 116:	01 97       	sbiw	r24, 0x01	; 1
+ 118:	f1 f7       	brne	.-4      	; 0x116 <main+0x64>
+ 11a:	00 c0       	rjmp	.+0      	; 0x11c <main+0x6a>
+ 11c:	00 00       	nop
+		transmitByte('\n');
+		transmitByte('\r');
+
+		// for (int i = 0; i < size; i++)
+		uint8_t i = 0;
+		while (data[i])
+ 11e:	e1 e0       	ldi	r30, 0x01	; 1
+ 120:	f0 e0       	ldi	r31, 0x00	; 0
+ 122:	ec 0f       	add	r30, r28
+ 124:	fd 1f       	adc	r31, r29
+ 126:	e0 0f       	add	r30, r16
+ 128:	f1 1d       	adc	r31, r1
+ 12a:	10 81       	ld	r17, Z
+ 12c:	11 11       	cpse	r17, r1
+ 12e:	ea cf       	rjmp	.-44     	; 0x104 <main+0x52>
+			i2cSend(data[i]);
+			transmitByte(data[i]);
+			i++;
+			_delay_ms(5);
+		}
+		transmitByte('\n');
+ 130:	8a e0       	ldi	r24, 0x0A	; 10
+ 132:	0e 94 b3 00 	call	0x166	; 0x166 <transmitByte>
+		transmitByte('\r');
+ 136:	8d e0       	ldi	r24, 0x0D	; 13
+ 138:	0e 94 b3 00 	call	0x166	; 0x166 <transmitByte>
+		// {
+		// 	i2cSend(data[i]);
+		// 	transmitByte(data[i]);
+		// }
+
+		i2cStop();
+ 13c:	0e 94 50 00 	call	0xa0	; 0xa0 <i2cStop>
+ 140:	9f ef       	ldi	r25, 0xFF	; 255
+ 142:	24 e3       	ldi	r18, 0x34	; 52
+ 144:	8c e0       	ldi	r24, 0x0C	; 12
+ 146:	91 50       	subi	r25, 0x01	; 1
+ 148:	20 40       	sbci	r18, 0x00	; 0
+ 14a:	80 40       	sbci	r24, 0x00	; 0
+ 14c:	e1 f7       	brne	.-8      	; 0x146 <main+0x94>
+ 14e:	00 c0       	rjmp	.+0      	; 0x150 <main+0x9e>
+ 150:	00 00       	nop
+		_delay_ms(500);
+	}
+ 152:	bd cf       	rjmp	.-134    	; 0xce <main+0x1c>
+
+00000154 <initUSART>:
+
+void initUSART(void)
+{
+
+  //Set BAud at 57.6K
+  UBRRH = (8 >> 8);
+ 154:	10 bc       	out	0x20, r1	; 32
+  UBRRL = 8;
+ 156:	88 e0       	ldi	r24, 0x08	; 8
+ 158:	89 b9       	out	0x09, r24	; 9
+
+  UCSRA &= ~(1 << U2X);
+ 15a:	59 98       	cbi	0x0b, 1	; 11
+
+  UCSRB = (1 << RXEN) | (1 << TXEN);
+ 15c:	88 e1       	ldi	r24, 0x18	; 24
+ 15e:	8a b9       	out	0x0a, r24	; 10
+  /* Set frame format: 8data, 2stop bit */
+  UCSRC = (1 << URSEL) | (0 << USBS) | (3 << UCSZ0);
+ 160:	86 e8       	ldi	r24, 0x86	; 134
+ 162:	80 bd       	out	0x20, r24	; 32
+ 164:	08 95       	ret
+
+00000166 <transmitByte>:
+}
+
+void transmitByte(uint8_t data)
+{
+  /* Wait for empty transmit buffer */
+  loop_until_bit_is_set(UCSRA, UDRE);
+ 166:	5d 9b       	sbis	0x0b, 5	; 11
+ 168:	fe cf       	rjmp	.-4      	; 0x166 <transmitByte>
+  UDR = data; /* send data */
+ 16a:	8c b9       	out	0x0c, r24	; 12
+ 16c:	08 95       	ret
+
+0000016e <_exit>:
+ 16e:	f8 94       	cli
+
+00000170 <__stop_program>:
+ 170:	ff cf       	rjmp	.-2      	; 0x170 <__stop_program>

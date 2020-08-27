@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "..\\.."
+		},
+		{
+			"name": "twi_slave_serial",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
