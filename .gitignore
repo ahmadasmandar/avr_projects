@@ -1,0 +1,7 @@
+atmega328p/serial_atmega328p/serial_atmega328p/Debug/serial_atmega328p.eep
+.vscode/
+*.elf
+*.hex
+*.pdsprj
+*.pdsbak
+*.workspace
