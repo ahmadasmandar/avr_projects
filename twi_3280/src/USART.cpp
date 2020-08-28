@@ -22,7 +22,7 @@
 
 void initUSART(void)
 {
-#define BAUD 57600      /* requires BAUD */
+  /* requires BAUD */
   UBRR0H = UBRRH_VALUE; /* defined in setbaud.h */
   UBRR0L = UBRRL_VALUE;
 

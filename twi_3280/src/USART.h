@@ -6,8 +6,8 @@
 #ifndef SPEED_H
 #define SPEED_H
 
-#ifndef BAUD       /* if not defined in Makefile... */
-#define BAUD 57600 /* set a safe default baud rate */
+#ifndef BAUD        /* if not defined in Makefile... */
+#define BAUD 250000 /* set a safe default baud rate */
 #endif
 
 /* These are defined for convenience */
