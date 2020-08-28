@@ -20,10 +20,14 @@
 #include "USART.h"
 #include <util/setbaud.h>
 
-void initUSART(unsigned int baud)
-{                       /* requires BAUD */
-  UBRR0H = (baud >> 8); /* defined in setbaud.h */
-  UBRR0L = baud;
+void initUSART(void)
+{
+#define BAUD 57600      /* requires BAUD */
+  UBRR0H = UBRRH_VALUE; /* defined in setbaud.h */
+  UBRR0L = UBRRL_VALUE;
+
+  // UBRR0H = (baud >> 8); /* defined in setbaud.h */
+  // UBRR0L = baud;
 #if USE_2X
   UCSR0A |= (1 << U2X0);
 #else
