@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include <avr/io.h>
-#define USE_2X
 
 // #define __AVR__Atmega328p__
 
