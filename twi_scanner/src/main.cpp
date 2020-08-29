@@ -1,3 +1,11 @@
+/*
+Written by Ahmad Asmandar 29.08.2020
+Ilmenau
+
+*/
+
+
+
 #include <Arduino.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -11,7 +19,7 @@ int main(void)
   initUSART();
   transmitByte('\r');
   transmitByte('\n');
-  printString("Start Transmiting");
+  printString("Start Scanning");
   initI2C();
   transmitByte('\r');
   transmitByte('\n');
@@ -29,19 +37,8 @@ int main(void)
         printString("adress found on: ");
         printByte(i);
       }
-      // transmitByte(checkErr());
 
-      // PORTB =i2cReadAck();
-      // transmitByte('\r');
-      // printByte(i2cReadNoAck());
-      // transmitByte('\r');
-      // if (i2cReadAck() < 255)
-      // {
-      //   printString("adress found and is : ");
-      //   PORTB |=i2cReadAck();
-      // }
       i2cStop();
-      // transmitByte(' ');
       _delay_ms(50);
     }
   }
