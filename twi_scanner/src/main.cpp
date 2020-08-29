@@ -11,7 +11,7 @@ Ilmenau
 #include <util/delay.h>
 #include "USART.h"
 #include "i2c.h"
-uint16_t ack = 0;
+
 
 int main(void)
 {
@@ -27,6 +27,8 @@ int main(void)
 
   while (1)
   {
+    PORTB ^=(1<<PB0);
+      _delay_ms(500);
 
     for (int i = 0; i < 255; i++)
     {
@@ -39,6 +41,7 @@ int main(void)
       }
 
       i2cStop();
+      PORTB ^=(1<<PB0);
       _delay_ms(50);
     }
   }
