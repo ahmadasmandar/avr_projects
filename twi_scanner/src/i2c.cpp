@@ -1,5 +1,5 @@
 #include "i2c.h"
-#include<avr/sfr_defs.h>
+#include <avr/sfr_defs.h>
 #include <util/twi.h>
 #include "USART.h"
 
@@ -43,16 +43,13 @@ void i2cSend(uint8_t data)
 uint8_t checkErr(void)
 {
     if ((TWSR & 0xF8) != TW_MT_SLA_ACK)
-        
-        {
-          return true;
-        }
-      else
-      {
+
+    {
+        return true;
+    }
+    else
+    {
         return false;
-
-      }
-      TWCR = (1 << TWINT) | (1 << TWEN);
+    }
+    TWCR = (1 << TWINT) | (1 << TWEN);
 }
-
-
